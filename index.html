@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Case File — Job Posting Review</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="masthead">
+    <p class="eyebrow">Fraud Review Desk</p>
+    <h1>Case File: Job&nbsp;Posting&nbsp;Review</h1>
+    <p class="subtitle">Enter a posting's details below. The desk will inspect it and stamp a verdict.</p>
+  </header>
+
+  <main class="desk">
+
+    <!-- ================= INTAKE FORM ================= -->
+    <section class="intake" aria-label="Job posting intake form">
+      <div class="intake-head">
+        <span class="tab">Intake&nbsp;Form</span>
+        <div class="sample-buttons">
+          <button type="button" class="chip" data-sample="suspicious">Load suspicious sample</button>
+          <button type="button" class="chip" data-sample="legit">Load legitimate sample</button>
+          <button type="button" class="chip chip-clear" data-sample="clear">Clear</button>
+        </div>
+      </div>
+
+      <form id="job-form">
+
+        <div class="field">
+          <label for="title">Job title <span class="req">*</span></label>
+          <input type="text" id="title" name="title" required placeholder="e.g. Senior Software Engineer" />
+        </div>
+
+        <div class="field">
+          <label for="company_profile">Company profile</label>
+          <textarea id="company_profile" name="company_profile" rows="3" placeholder="Who is the employer? Founded when, where, what do they do..."></textarea>
+        </div>
+
+        <div class="field">
+          <label for="description">Job description</label>
+          <textarea id="description" name="description" rows="4" placeholder="What is the role, responsibilities..."></textarea>
+        </div>
+
+        <div class="field">
+          <label for="requirements">Requirements</label>
+          <textarea id="requirements" name="requirements" rows="3" placeholder="Skills, experience, qualifications required..."></textarea>
+        </div>
+
+        <div class="field">
+          <label for="benefits">Benefits</label>
+          <textarea id="benefits" name="benefits" rows="3" placeholder="Salary, perks, insurance..."></textarea>
+        </div>
+
+        <div class="field">
+          <label for="salary_range">Salary range</label>
+          <input type="text" id="salary_range" name="salary_range" placeholder="e.g. 60000-80000 (leave blank if not stated)" />
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="employment_type">Employment type</label>
+            <select id="employment_type" name="employment_type">
+              <option value="Unspecified">Unspecified</option>
+              <option value="Full-time">Full-time</option>
+              <option value="Part-time">Part-time</option>
+              <option value="Contract">Contract</option>
+              <option value="Temporary">Temporary</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="required_experience">Required experience</label>
+            <select id="required_experience" name="required_experience">
+              <option value="Unspecified">Unspecified</option>
+              <option value="Internship">Internship</option>
+              <option value="Not Applicable">Not Applicable</option>
+              <option value="Entry level">Entry level</option>
+              <option value="Associate">Associate</option>
+              <option value="Mid-Senior level">Mid-Senior level</option>
+              <option value="Director">Director</option>
+              <option value="Executive">Executive</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="required_education">Required education</label>
+          <select id="required_education" name="required_education">
+            <option value="Unspecified">Unspecified</option>
+            <option value="Some High School Coursework">Some High School Coursework</option>
+            <option value="High School or equivalent">High School or equivalent</option>
+            <option value="Vocational">Vocational</option>
+            <option value="Vocational - HS Diploma">Vocational - HS Diploma</option>
+            <option value="Vocational - Degree">Vocational - Degree</option>
+            <option value="Certification">Certification</option>
+            <option value="Some College Coursework Completed">Some College Coursework Completed</option>
+            <option value="Associate Degree">Associate Degree</option>
+            <option value="Bachelor's Degree">Bachelor's Degree</option>
+            <option value="Master's Degree">Master's Degree</option>
+            <option value="Professional">Professional</option>
+            <option value="Doctorate">Doctorate</option>
+          </select>
+        </div>
+
+        <fieldset class="flags">
+          <legend>Posting flags</legend>
+          <label class="checkbox"><input type="checkbox" id="telecommuting" name="telecommuting" /> Telecommuting / remote</label>
+          <label class="checkbox"><input type="checkbox" id="has_company_logo" name="has_company_logo" /> Has company logo</label>
+          <label class="checkbox"><input type="checkbox" id="has_questions" name="has_questions" /> Has screening questions</label>
+        </fieldset>
+
+        <div class="field">
+          <label for="threshold">
+            Decision threshold: <span id="threshold-value">0.50</span>
+          </label>
+          <input type="range" id="threshold" name="threshold" min="0" max="1" step="0.05" value="0.5" />
+          <p class="hint">Lower = flags more postings as fraudulent (favors recall). Higher = stricter (favors precision).</p>
+        </div>
+
+        <button type="submit" id="submit-btn" class="submit-btn">Review posting</button>
+      </form>
+    </section>
+
+    <!-- ================= VERDICT PANEL ================= -->
+    <section class="verdict-panel" aria-label="Review verdict" aria-live="polite">
+      <div class="tab">Verdict</div>
+
+      <div id="verdict-empty" class="verdict-state">
+        <p>No posting reviewed yet.</p>
+        <p class="hint">Fill in the form and click <strong>Review posting</strong> to see the desk's verdict.</p>
+      </div>
+
+      <div id="verdict-loading" class="verdict-state hidden">
+        <p>Reviewing posting…</p>
+      </div>
+
+      <div id="verdict-error" class="verdict-state hidden">
+        <p class="error-title">Review failed</p>
+        <p id="error-message" class="hint"></p>
+      </div>
+
+      <div id="verdict-result" class="verdict-state hidden">
+        <div id="stamp" class="stamp">
+          <span id="stamp-label">LEGITIMATE</span>
+        </div>
+        <div class="probability-row">
+          <span>Fraud probability</span>
+          <strong id="probability-value">0%</strong>
+        </div>
+        <div class="probability-bar">
+          <div id="probability-fill" class="probability-fill"></div>
+        </div>
+        <p class="hint" id="threshold-note"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot-note">
+    <p>This tool flags style and pattern, not verified fact. Treat results as a triage signal, not a final ruling.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

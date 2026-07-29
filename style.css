@@ -1,0 +1,364 @@
+:root {
+  --paper: #f1e8d6;
+  --paper-dark: #e6d9bd;
+  --card: #faf4e6;
+  --ink: #241f18;
+  --ink-soft: #6b6151;
+  --rule: #cabb98;
+  --folder: #9c6b34;
+  --stamp-red: #a53a2c;
+  --stamp-green: #2e6b4f;
+  --focus: #2451c9;
+  --radius: 3px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  background-image:
+    linear-gradient(var(--paper-dark) 1px, transparent 1px);
+  background-size: 100% 32px;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+*:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* ---------------- Masthead ---------------- */
+.masthead {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 48px 24px 24px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.eyebrow {
+  font-family: "Courier New", Courier, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 12px;
+  color: var(--folder);
+  margin: 0 0 8px;
+}
+
+.masthead h1 {
+  margin: 0 0 8px;
+  font-size: 38px;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--ink-soft);
+  font-family: Georgia, serif;
+  font-size: 16px;
+  max-width: 60ch;
+}
+
+/* ---------------- Desk layout ---------------- */
+.desk {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+@media (max-width: 800px) {
+  .desk {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tab {
+  display: inline-block;
+  font-family: "Courier New", Courier, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 12px;
+  color: var(--paper);
+  background: var(--ink);
+  padding: 6px 12px;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+/* ---------------- Intake form ---------------- */
+.intake {
+  background: var(--card);
+  border: 1.5px solid var(--ink);
+  border-radius: 0 var(--radius) var(--radius) var(--radius);
+  padding: 20px;
+}
+
+.intake-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.sample-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: transparent;
+  border: 1px solid var(--ink-soft);
+  color: var(--ink-soft);
+  padding: 6px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.chip:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.chip-clear {
+  border-color: var(--stamp-red);
+  color: var(--stamp-red);
+}
+
+.chip-clear:hover {
+  border-color: var(--stamp-red);
+  color: var(--stamp-red);
+  background: rgba(165, 58, 44, 0.08);
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 520px) {
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+label {
+  display: block;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+.req {
+  color: var(--stamp-red);
+}
+
+input[type="text"],
+textarea,
+select {
+  width: 100%;
+  font-family: Georgia, serif;
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  resize: vertical;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--focus);
+}
+
+.flags {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin: 0 0 16px;
+}
+
+.flags legend {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  padding: 0 6px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: Georgia, serif;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--ink);
+  font-size: 15px;
+  margin: 8px 0;
+}
+
+.checkbox input {
+  width: 16px;
+  height: 16px;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--folder);
+}
+
+.hint {
+  font-family: Georgia, serif;
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 6px 0 0;
+}
+
+.submit-btn {
+  width: 100%;
+  font-family: "Courier New", Courier, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 14px;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+.submit-btn:hover {
+  background: var(--folder);
+}
+
+.submit-btn:disabled {
+  background: var(--ink-soft);
+  cursor: wait;
+}
+
+/* ---------------- Verdict panel ---------------- */
+.verdict-panel {
+  background: var(--card);
+  border: 1.5px solid var(--ink);
+  border-radius: 0 var(--radius) var(--radius) var(--radius);
+  padding: 24px;
+  min-height: 360px;
+  position: sticky;
+  top: 24px;
+}
+
+.verdict-state {
+  margin-top: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.error-title {
+  font-family: "Courier New", Courier, monospace;
+  color: var(--stamp-red);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.stamp {
+  border: 5px double var(--stamp-green);
+  color: var(--stamp-green);
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  font-size: 26px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-align: center;
+  padding: 22px 10px;
+  border-radius: 6px;
+  transform: rotate(-4deg);
+  margin: 10px 6px 26px;
+  opacity: 0.92;
+}
+
+.stamp.fraud {
+  border-color: var(--stamp-red);
+  color: var(--stamp-red);
+  transform: rotate(3deg);
+}
+
+.probability-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+.probability-row strong {
+  font-size: 20px;
+  color: var(--ink);
+  font-family: Georgia, serif;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.probability-bar {
+  width: 100%;
+  height: 10px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.probability-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--stamp-green);
+  transition: width 0.4s ease;
+}
+
+.probability-fill.fraud {
+  background: var(--stamp-red);
+}
+
+/* ---------------- Footer ---------------- */
+.foot-note {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px 48px;
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-family: Georgia, serif;
+}
